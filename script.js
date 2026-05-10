@@ -200,50 +200,56 @@ for (let i = 0; i < 90; i++) {
 }
 
 /* =================== FOTOS PEQUEÑAS =================== */
-
 const photoTextureLoader = new THREE.TextureLoader();
 
 const urls = [
  "assets/img/200_4993_0001.jpg", 
  "assets/img/200_5775.jpg", 
- "assets/img/200:4993_0001.jpg",
+ "assets/img/200_4993_0001.jpg", // Nota: Revisa si el ":" en el nombre es correcto o si era "_"
  "assets/img/200_5777.jpg",
  "WhatsApp Image 2024-11-16 at 5.09.44 PM (2).jpeg",
  "Snapchat-1360669352.jpg",
  "IMG_20231204_220645.jpg",
- "20260228_202652.jpg"
+ "20260228_202652.jpg" // Nueva foto añadida
 ];
 
 let fotoSprites = [];
 
-// 1. Aumentamos el contador a 150 para que haya muchas más
+// Generamos 150 imágenes para inundar el espacio
 for (let i = 0; i < 150; i++) {  
     const texture = photoTextureLoader.load(urls[i % urls.length]);
-    const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
+    const material = new THREE.SpriteMaterial({ 
+        map: texture, 
+        transparent: true,
+        opacity: 0.9 // Un toque de transparencia para que se mezclen mejor
+    });
     const sprite = new THREE.Sprite(material);
 
-    // Ajuste de tamaño ligeramente más variado
-    const scale = 1.2 + Math.random() * 1.5;  
+    // Tamaños variados: unas pequeñas y otras más grandes para dar profundidad
+    const scale = 1.0 + Math.random() * 1.8;  
     sprite.scale.set(scale, scale, 1);
 
-    // 2. Ampliamos el rango de dispersión (de 40 a 80 y de 25 a 50) 
-    // para que las 150 fotos tengan espacio y parezcan una nube gigante
-    let x = (Math.random() - 0.5) * 80;
-    let y = (Math.random() - 0.5) * 50;
-    let z = (Math.random() - 0.5) * 80;
+    // Dispersión amplia para cubrir toda la pantalla
+    let x = (Math.random() - 0.5) * 90;
+    let y = (Math.random() - 0.5) * 60;
+    let z = (Math.random() - 0.5) * 90;
 
-    // Mantenemos el despeje del corazón central
-    if (Math.abs(x) < 7 && Math.abs(y) < 7) y += 10;  
+    // Zona de seguridad: alejamos las fotos del centro para que el corazón brille
+    if (Math.abs(x) < 8 && Math.abs(y) < 8) {
+        x += (x > 0 ? 10 : -10);
+        y += (y > 0 ? 10 : -10);
+    }
 
     sprite.position.set(x, y, z);
     
+    // Configuración de movimiento individual
     sprite.userData = {
         baseY: y,
         orbitRadius: Math.sqrt(x * x + z * z),
         orbitAngle: Math.atan2(z, x),
-        orbitSpeed: 0.001 + Math.random() * 0.003, // Velocidades variadas para cada foto
-        floatAmp: Math.random() * 0.8,
-        floatSpeed: Math.random() * 0.6,
+        orbitSpeed: 0.0005 + Math.random() * 0.002, // Giro lento y elegante
+        floatAmp: Math.random() * 0.7,
+        floatSpeed: Math.random() * 0.4,
         phase: Math.random() * Math.PI * 2,
         baseScale: scale
     };
