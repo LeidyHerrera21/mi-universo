@@ -203,10 +203,10 @@ for (let i = 0; i < 90; i++) {
 const photoTextureLoader = new THREE.TextureLoader();
 
 const urls = [
- "assets/img/200_4993_0001.jpg", 
- "assets/img/200_5775.jpg", 
- "assets/img/200_4993_0001.jpg", // Nota: Revisa si el ":" en el nombre es correcto o si era "_"
- "assets/img/200_5777.jpg",
+ "assets/img/200_4993_0001.JPG", 
+ "assets/img/200_5775.JPG", 
+ "assets/img/200_4993_0001.JPG", // Nota: Revisa si el ":" en el nombre es correcto o si era "_"
+ "assets/img/200_5777.JPG",
  "WhatsApp Image 2024-11-16 at 5.09.44 PM (2).jpeg",
  "Snapchat-1360669352.jpg",
  "IMG_20231204_220645.jpg",
